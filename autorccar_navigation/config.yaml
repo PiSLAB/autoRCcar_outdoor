@@ -1,0 +1,27 @@
+---
+# user settings
+alignment_time_sec: 10.0
+initial_yaw_deg: 0.0
+
+# covariance
+covP.pos: 2e-2
+covP.vel: 1e-3 
+covP.quat: 1e-8
+covP.b_acc: 2e-7
+covP.b_gyro: 2e-10
+
+# Busan Data
+# covQ.n_acc: 1e-1
+# covQ.bi_acc: 1e-13
+# covQ.n_gyro: 1e-6
+# covQ.bi_gyro: 1e-13
+
+# NavTest Data
+covQ.n_acc: 1e-1
+covQ.bi_acc: 1e-10
+covQ.n_gyro: 1e-5
+covQ.bi_gyro: 1e-10
+
+covR.pos: 10000
+covR.vel: 1e-2
+...
