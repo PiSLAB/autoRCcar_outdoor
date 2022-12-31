@@ -13,10 +13,10 @@ int main(int argc, char * argv[])
     rclcpp::init(argc, argv);
 
     // Create EKF based navigation system.
-    std::string config = "/home/gunaco/ros_ws/src/autorccar_outdoor/autorccar_navigation/config.yaml";
+    std::string config = "/home/gunaco/ros_ws/src/autoRCcar_outdoor/autorccar_navigation/config.yaml";
 
     EKF nav(config);
-    
+
     auto node = std::make_shared<EKFWrapper>(&nav);
     rclcpp::spin(node);
 

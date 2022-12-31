@@ -1,6 +1,6 @@
 # autoRCcar_outdoor
 
-<p align="center"> <img src=".tmp\autoRCcar_test_video.gif" width="400" height="200"/> </p>  
+<p align="center"> <img src=".tmp\autoRCcar_test_video.gif" width="500" height="300"/> </p>
 
 ## System
 ### Hardware
@@ -12,9 +12,9 @@
 - [PyQt](https://pypi.org/project/PyQt5/)　<< GCS
 ## Packages
 ```bash
-├── autorccar_launch : autoRCcar packages lunch
+├── autorccar_launch : autoRCcar packages lunch file
 │
-├── autorccar_interfaces : Custom messages
+├── autorccar_interfaces : Custom interface messages
 ├── autorccar_ubloxf9r : Sensor DAQ (GNSS & IMU)
 ├── autorccar_navigation : GNSS/INS EKF
 ├── autorccar_path_planning : Bezier curve
@@ -29,6 +29,14 @@
 ```
 ## Build
 ### RC car
+**Check point)** Path setting for autorcar_navigation/config.yaml file is required.
+```bash
+~/autoRCcar_outdoor/autorccar_navigation/src/main_ekf.cpp
+```
+```C++
+std::string config = "/home/{User_Name}/{ROS_Workspace}/src/autoRCcar_outdoor/autorccar_navigation/config.yaml";
+```
+
 ```bash
 cd ~/ros2_ws
 colcon build --symlink-install
@@ -71,11 +79,6 @@ ros2 run autorccar_keyboard keyboard_control
 ## Reference
 - Control) https://github.com/AtsushiSakai/PythonRobotics
 - Keyboard) https://github.com/ros2/teleop_twist_keyboard
-
-## Contributors
-[GS Park](p),　[JH Lee](l),　[JH Bae](b),　[HJ Son](s)
-
-[p]:https://github.com/gspark87
-[l]:https://github.com/lee90108
-[b]:https://github.com/luke7637
-[s]:https://github.com/dlfksj
+## FutureWork
+- Waypoint (Reset is required to go to the updated goal point)
+- Indoor navigation (SLAM)
