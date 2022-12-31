@@ -109,11 +109,11 @@ class GNSS_Pub : public rclcpp::Node
 
 	private:
 		void timer_callback()
-		{	
+		{
 			if(Packet_Flag2 == 1 && Packet_Flag3 == 1)
 			{
 				Packet_Flag2 = 0;
-				Packet_Flag3 = 0;			
+				Packet_Flag3 = 0;
 				auto message = autorccar_interfaces::msg::Gnss();
 				message.position_ecef.x = ECEF.PosX;
 				message.position_ecef.y = ECEF.PosY;
@@ -122,6 +122,7 @@ class GNSS_Pub : public rclcpp::Node
 				message.velocity_ecef.y = ECEF.VelY;
 				message.velocity_ecef.z = ECEF.VelZ;
 				message.timestamp = now();
+				/*
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.position_ecef.x << "'");
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.position_ecef.y << "'"); 
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.position_ecef.z << "'"); 
@@ -130,8 +131,9 @@ class GNSS_Pub : public rclcpp::Node
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.velocity_ecef.z << "'"); 
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.timestamp.sec << "'");
 				RCLCPP_INFO_STREAM(this->get_logger(), "Publishing: '" << message.timestamp.nanosec << "'");
-				cout << "                        "<< endl; 
-				publisher_->publish(message);				
+				cout << "                        "<< endl;
+				*/
+				publisher_->publish(message);
 			}
 		}
 		rclcpp::TimerBase::SharedPtr timer_;

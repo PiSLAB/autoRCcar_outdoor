@@ -3,6 +3,8 @@
 <p align="center"> <img src=".tmp\autoRCcar_test_video.gif" width="400" height="200"/> </p>  
 
 ## System
+### Hardware
+### Software
 
 ## Depenency
 - ROS2 (Galactic)
@@ -10,18 +12,18 @@
 - [PyQt](https://pypi.org/project/PyQt5/)　<< GCS
 ## Packages
 ```bash
-├── launch : package launch folder
+├── autorccar_launch : autoRCcar packages lunch
 │
-├── autorccar_interfaces : custom messages
-├── autorccar_ubloxf9r : sensor daq (imu & gnss)
-├── autorccar_navigation : localization (gnss/ins ekf)
-├── autorccar_path_planning : path generator
-├── autorccar_control : pure pursuit 
+├── autorccar_interfaces : Custom messages
+├── autorccar_ubloxf9r : Sensor DAQ (GNSS & IMU)
+├── autorccar_navigation : GNSS/INS EKF
+├── autorccar_path_planning : Bezier curve
+├── autorccar_control : Pure pursuit
 │
-├── autorccar_esp32 : PWM generator (Arduino)
+├── autorccar_esp32 : PWM generator (Arduino IDE)
 │
-├── autorccar_keyboard : manual control
-├── autorccar_gcs : commander & monitoring
+├── autorccar_keyboard : Manual control
+├── autorccar_gcs : Command & Monitoring
 │
 └── run.sh : package excutable
 ```
@@ -32,10 +34,9 @@ cd ~/ros2_ws
 colcon build --symlink-install
 source install/setup.bash
 ```
-If there is a custom messages error, proceed with the autorccar_interfaces build first.
+If there is a custom messages error, proceed with the `autorccar_interfaces` build first.
 ```bash
 colcon build --symlink-install --packages-select autorccar_interfaces
-colcon build --symlink-install --packages-select autorccar_ubloxf9r autorccar_navigation autorccar_path_planning autorccar_control
 source install/setup.bash
 ```
 ### (Optional) Remote PC
@@ -50,8 +51,14 @@ source install/setup.bash
 ## Application
 ### Autonomous Driving
 ```bash
-chmod +x run.sh
-./run.sh
+ros2 run autorccar_launch launch.py
+```
+If you want to run an individual package,
+```bash
+ros2 run autorccar_ubloxf9r ubloxf9r
+ros2 run autorccar_navigation gnss_ins
+ros2 run autorccar_path_planning bezier_curve
+ros2 run autorccar_control pure_pursuit
 ```
 ### GCS
 ```bash
