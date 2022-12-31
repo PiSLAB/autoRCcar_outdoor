@@ -92,7 +92,7 @@ ros2 run autorccar_navigation gnss_ins
 ros2 run autorccar_path_planning bezier_curve
 ros2 run autorccar_control pure_pursuit
 ```
-### GCS &nbsp; [[link]](https://github.com/PiSLAB/autoRCcar_outdoor/blob/main/autorccar_gcs/README.md)
+### GCS &nbsp;[[README]](https://github.com/PiSLAB/autoRCcar_outdoor/blob/main/autorccar_gcs/README.md)
 ```bash
 ros2 run autorccar_gcs autorccar_gcs
 ```
