@@ -1,31 +1,37 @@
 # autoRCcar_outdoor
 
-<p align="center"> <img src=".tmp\autoRCcar_test_video.gif" width="500" height="300"/> </p>
+<p align="center"> <img src="images\autoRCcar_test_video.gif" width="500" height="300"/> </p>
 
 ## System
 ### Hardware
+<p1 align="center"> <img src="images\autoRCcar.jpg" width="400" height="200"/> </p1>
+- 1/8 VRX RH818 (RC Car)
+- NVIDIA Jetson Nano
+  - ubuntu 20.04 + ROS2 Galactic
+- SparkFun GPS-16355 (ublox ZED-F9R)
+- ESP32
 ### Software
 
+<p2 align="center"> <img src="images\ros2_architect.jpg" width="400" height="200"/> </p2>
 ## Depenency
-- ROS2 (Galactic)
+- [ROS2](https://docs.ros.org/en/galactic/index.html) (Galactic)
 - [Eigen](https://eigen.tuxfamily.org/)
 - [PyQt](https://pypi.org/project/PyQt5/)　<< GCS
 ## Packages
 ```bash
-├── autorccar_launch : autoRCcar packages lunch file
-│
-├── autorccar_interfaces : Custom interface messages
-├── autorccar_ubloxf9r : Sensor DAQ (GNSS & IMU)
-├── autorccar_navigation : GNSS/INS EKF
-├── autorccar_path_planning : Bezier curve
-├── autorccar_control : Pure pursuit
-│
-├── autorccar_esp32 : PWM generator (Arduino IDE)
-│
-├── autorccar_keyboard : Manual control
-├── autorccar_gcs : Command & Monitoring
-│
-└── run.sh : package excutable
+autoRCcar_outdoor
+  ├── autorccar_launch : autoRCcar packages lunch file
+  │
+  ├── autorccar_interfaces : Custom interface messages
+  ├── autorccar_ubloxf9r : Sensor DAQ (GNSS & IMU)
+  ├── autorccar_navigation : GNSS/INS EKF
+  ├── autorccar_path_planning : Bezier curve
+  ├── autorccar_control : Pure pursuit
+  │
+  ├── autorccar_esp32 : PWM generator (Arduino IDE)
+  │
+  ├── autorccar_keyboard : Manual control
+  └── autorccar_gcs : Command & Monitoring
 ```
 ## Build
 ### RC car
@@ -49,11 +55,11 @@ source install/setup.bash
 ```
 ### (Optional) Remote PC
 ```bash
-cd ~/ros2_ws/src/autorccar_outdoor/autorccar_gcs
+cd ~/ros2_ws/src/autoRCcar_outdoor/autorccar_gcs
 pip3 install -r requirement.txt
 
 cd ~/ros2_ws
-colcon build --symlink-install --packages-select autorccar_keyboard autorccar_gcs
+colcon build --symlink-install --packages-select autorccar_gcs autorccar_keyboard
 source install/setup.bash
 ```
 ## Application
