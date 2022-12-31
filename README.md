@@ -1,6 +1,8 @@
 # autoRCcar_outdoor
 
-<p align="center"> <img src="autoRCcar_test_video.gif" width="400" height="200"/> </p>  
+<p align="center"> <img src=".tmp\autoRCcar_test_video.gif" width="400" height="200"/> </p>  
+
+## System
 
 ## Depenency
 - ROS2 (Galactic)
@@ -12,14 +14,14 @@
 │
 ├── autorccar_interfaces : custom messages
 ├── autorccar_ubloxf9r : sensor daq (imu & gnss)
-├── autorccar_navigation : RC car localization
+├── autorccar_navigation : localization (gnss/ins ekf)
 ├── autorccar_path_planning : path generator
-├── autorccar_control : RC car control
+├── autorccar_control : pure pursuit 
 │
 ├── autorccar_esp32 : PWM generator (Arduino)
 │
 ├── autorccar_keyboard : manual control
-├── autorccar_gcs : command & monitoring
+├── autorccar_gcs : commander & monitoring
 │
 └── run.sh : package excutable
 ```
@@ -27,14 +29,16 @@
 ### RC car
 ```bash
 cd ~/ros2_ws
-colcon build --symlink-install --packages-select autorccar_interfaces
+colcon build --symlink-install
 source install/setup.bash
 ```
+If there is a custom messages error, proceed with the autorccar_interfaces build first.
 ```bash
+colcon build --symlink-install --packages-select autorccar_interfaces
 colcon build --symlink-install --packages-select autorccar_ubloxf9r autorccar_navigation autorccar_path_planning autorccar_control
 source install/setup.bash
 ```
-### (optional) remote pc
+### (Optional) Remote PC
 ```bash
 cd ~/ros2_ws/src/autorccar_outdoor/autorccar_gcs
 pip3 install -r requirement.txt
