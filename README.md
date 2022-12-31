@@ -4,45 +4,63 @@
 
 ## System
 ### Hardware
-<p1 align="center"> <img src="images\autoRCcar.jpg" width="400" height="200"/> </p1>
+<p1 align="center"> <img src="images\autorccar_hw.jpg" width="496" height="369"/> </p1>
 - 1/8 VRX RH818 (RC Car)
 - NVIDIA Jetson Nano
   - ubuntu 20.04 + ROS2 Galactic
-- SparkFun GPS-16355 (ublox ZED-F9R)
-- ESP32
+- SparkFun GPS-16344 (ublox ZED-F9R) + GNSS Antenna
+- ESP32 WROOM Devkit
 ### Software
-
-<p2 align="center"> <img src="images\ros2_architect.jpg" width="400" height="200"/> </p2>
+<p2 align="center"> <img src="images\autorccar_sw.jpg" width="494" height="266"/> </p2>
+### Note
+- In the file below, you need to set the path of the `autorcar_navigation/config.yaml`.
+  `~/autoRCcar_outdoor/autorccar_navigation/src/main_ekf.cpp`
+```C++
+// Modify the config.yaml path
+std::string config = "/home/{User_Name}/{ROS_Workspace}/src/autoRCcar_outdoor/autorccar_navigation/config.yaml";
+```
+- If the mounted axis of the IMU is changed, the axis must be converted in the path below.
+  `~/autoRCcar_outdoor/autorccar_navigation/src/ekf_ros_wrapper.cpp`
+```C++
+void EKFWrapper::ImuCallback(const autorccar_interfaces::msg::Imu & msg)
+{
+  // Transform IMU coordinates
+  double imu_time = msg.timestamp.sec + msg.timestamp.nanosec*1e-9;
+  Eigen::Vector3d acc = Eigen::Vector3d(msg.linear_acceleration.y, msg.linear_acceleration.x, -msg.linear_acceleration.z);
+  Eigen::Vector3d gyro = Eigen::Vector3d(msg.angular_velocity.y, msg.angular_velocity.x, -msg.angular_velocity.z);
+  ...
+}
+```
+- If the UART of ESP32 is changed, you must change the port in the file below.
+  `~/autoRCcar_outdoor/autorccar_control/src/main.cpp`
+```C++
+// EPS32 device
+fid = pp.uart_init("/dev/ttyUSB0");
+```
+- It is impossible to change the goal point while driving because a goal point is once subscribed to in the control node. You must re-run the `autorccar_control` to enter a new goal point.
+- The vehicle speed is currently limited to slow. You can change it in the `autorccar_control`.
 ## Depenency
 - [ROS2](https://docs.ros.org/en/galactic/index.html) (Galactic)
 - [Eigen](https://eigen.tuxfamily.org/)
-- [PyQt](https://pypi.org/project/PyQt5/)　<< GCS
+- [PyQt](https://pypi.org/project/PyQt5/) (GCS)
 ## Packages
 ```bash
 autoRCcar_outdoor
   ├── autorccar_launch : autoRCcar packages lunch file
   │
-  ├── autorccar_interfaces : Custom interface messages
-  ├── autorccar_ubloxf9r : Sensor DAQ (GNSS & IMU)
+  ├── autorccar_interfaces : custom interface messages
+  ├── autorccar_ubloxf9r : sensor DAQ (GNSS & IMU)
   ├── autorccar_navigation : GNSS/INS EKF
-  ├── autorccar_path_planning : Bezier curve
-  ├── autorccar_control : Pure pursuit
+  ├── autorccar_path_planning : bezier curve
+  ├── autorccar_control : pure pursuit
   │
   ├── autorccar_esp32 : PWM generator (Arduino IDE)
   │
-  ├── autorccar_keyboard : Manual control
+  ├── autorccar_keyboard : manual control
   └── autorccar_gcs : Command & Monitoring
 ```
 ## Build
 ### RC car
-**Check point)** Path setting for autorcar_navigation/config.yaml file is required.
-```bash
-~/autoRCcar_outdoor/autorccar_navigation/src/main_ekf.cpp
-```
-```C++
-std::string config = "/home/{User_Name}/{ROS_Workspace}/src/autoRCcar_outdoor/autorccar_navigation/config.yaml";
-```
-
 ```bash
 cd ~/ros2_ws
 colcon build --symlink-install
@@ -74,17 +92,14 @@ ros2 run autorccar_navigation gnss_ins
 ros2 run autorccar_path_planning bezier_curve
 ros2 run autorccar_control pure_pursuit
 ```
-### GCS
+### GCS &nbsp; [[link]](https://github.com/PiSLAB/autoRCcar_outdoor/blob/main/autorccar_gcs/README.md)
 ```bash
 ros2 run autorccar_gcs autorccar_gcs
 ```
-### (optional) Keyboard Control
+### (Optional) Keyboard Control
 ```bash
 ros2 run autorccar_keyboard keyboard_control
 ```
 ## Reference
 - Control) https://github.com/AtsushiSakai/PythonRobotics
 - Keyboard) https://github.com/ros2/teleop_twist_keyboard
-## FutureWork
-- Waypoint (Reset is required to go to the updated goal point)
-- Indoor navigation (SLAM)
