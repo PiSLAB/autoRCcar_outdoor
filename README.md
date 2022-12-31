@@ -4,14 +4,14 @@
 
 ## System
 ### Hardware
-<p1 align="center"> <img src="images\autorccar_hw.jpg" width="496" height="369"/> </p1>
+<p1 align="center"> <img src="images\autorccar_hw.jpg" width="655" height="488"/> </p1>
 - 1/8 VRX RH818 (RC Car)
 - NVIDIA Jetson Nano
   - ubuntu 20.04 + ROS2 Galactic
 - SparkFun GPS-16344 (ublox ZED-F9R) + GNSS Antenna
 - ESP32 WROOM Devkit
 ### Software
-<p2 align="center"> <img src="images\autorccar_sw.jpg" width="494" height="266"/> </p2>
+<p2 align="center"> <img src="images\autorccar_sw.jpg" width="655" height="353"/> </p2>
 ### Note
 - In the file below, you need to set the path of the `autorcar_navigation/config.yaml`.
   `~/autoRCcar_outdoor/autorccar_navigation/src/main_ekf.cpp`
