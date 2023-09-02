@@ -230,7 +230,7 @@ void pure_pursuit::uart_tx(const int fd, rclcpp::Publisher<geometry_msgs::msg::V
     msg[7] = (int)command & 0xff;
 
 
-    // int cnt = write(fd, msg, sizeof(msg));
+    int cnt = write(fd, msg, sizeof(msg));
 
     pub_msg.x = conStr;    // Servo(Steering) : 0(\)-90(|)-180(/)
     pub_msg.y = conVel;    // ESC : 0-backward-90-forward-180
